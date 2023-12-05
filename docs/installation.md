@@ -19,7 +19,7 @@ Peer Connect is a simple real-time communication application that allows users t
 3. Start the server:
 
     ```bash
-    npm start
+    npm run dev
     ```
 
    The server will run on `http://localhost:8000` by default. You can customize the port in the `server/index.js` file.
