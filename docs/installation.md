@@ -38,11 +38,7 @@ Peer Connect is a simple real-time communication application that allows users t
     npm install
     ```
 
-3. Configure the server URL:
-
-   Open the `client/src/constants.js` file and update the `SERVER_URL` variable with the URL where your server is running.
-
-4. Start the client application:
+3. Start the client application:
 
     ```bash
     npm start
