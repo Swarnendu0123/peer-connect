@@ -1,5 +1,6 @@
 import React, { createContext, useMemo } from "react";
 import { io } from "socket.io-client";
+import { BACKEND_URL } from "../config";
 const SocketContext = createContext(null);
 
 export const useSocket = () => {
@@ -9,7 +10,7 @@ export const useSocket = () => {
 
 export const SocketProvider = (props) => {
     const socket = useMemo(
-        () => io("http://localhost:8000")
+        () => io(BACKEND_URL)
         , []);
     return (
         <SocketContext.Provider value={socket}>

@@ -20,27 +20,35 @@ const RoomPage = () => {
     }, []);
 
     const handleCallUser = useCallback(async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-            video: true,
-        });
-
-        const offer = await peer.getOffer();
-        socket.emit("user:call", { to: remoteSocketId, offer });
-        setMyStream(stream);
-    }, [remoteSocketId, socket]);
-
-    const handleIncommingCall = useCallback(
-        async ({ from, offer }) => {
-            setRemoteSocketId(from);
+        try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: true,
                 video: true,
             });
+
+            const offer = await peer.getOffer();
+            socket.emit("user:call", { to: remoteSocketId, offer });
             setMyStream(stream);
-            console.log(`Incoming Call`, from, offer);
-            const answer = await peer.getAnswer(offer);
-            socket.emit("call:accepted", { to: from, answer });
+        } catch (error) {
+            console.error("Error accessing user media:", error);
+        }
+    }, [remoteSocketId, socket]);
+
+    const handleIncommingCall = useCallback(
+        async ({ from, offer }) => {
+            try {
+                setRemoteSocketId(from);
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: true,
+                    video: true,
+                });
+                setMyStream(stream);
+                console.log(`Incoming Call`, from, offer);
+                const answer = await peer.getAnswer(offer);
+                socket.emit("call:accepted", { to: from, answer });
+            } catch (error) {
+                console.error("Error accessing user media:", error);
+            }
         },
         [socket]
     );
