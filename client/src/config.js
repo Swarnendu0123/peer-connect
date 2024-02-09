@@ -1,1 +1,1 @@
-export const BACKEND_URL = "http://10.145.59.112:8000";
+export const BACKEND_URL = "https://peer-connect-api.vercel.app";
